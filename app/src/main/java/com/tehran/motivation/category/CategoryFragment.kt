@@ -6,11 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.tehran.motivation.ServiceLocator
 import com.tehran.motivation.databinding.FragmentCategoryBinding
 
 
 class CategoryFragment : Fragment() {
-    private val viewModel: CategoryViewModel by viewModels()
+    private val viewModel: CategoryViewModel by viewModels {
+        CategoryViewModelFactory(ServiceLocator.provideCategoryRepository(requireNotNull(activity).application))
+    }
+
     private lateinit var binding: FragmentCategoryBinding
     private lateinit var adapter: CategoryAdapter
     override fun onCreateView(
@@ -19,6 +23,7 @@ class CategoryFragment : Fragment() {
     ): View? {
         binding = FragmentCategoryBinding.inflate(inflater, container, false)
         binding.viewmodel = viewModel
+        binding.lifecycleOwner = this
         return binding.root
     }
 

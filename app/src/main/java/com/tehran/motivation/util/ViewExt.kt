@@ -14,12 +14,12 @@ import com.tehran.motivation.data.Motivation
 import com.tehran.motivation.note.NoteAdapter
 
 @BindingAdapter("motivationList")
-fun RecyclerView.motivationList(motivations: List<Motivation>?) = motivations.let {
+fun RecyclerView.motivationList(motivations: List<Motivation>?) = motivations?.let {
     (adapter as NoteAdapter).submitList(it)
 }
 
 @BindingAdapter("categoryList")
-fun RecyclerView.categoryList(categories: List<Category>?) = categories.let {
+fun RecyclerView.categoryList(categories: List<Category>?) = categories?.let {
     (adapter as CategoryAdapter).submitList(it)
 }
 
