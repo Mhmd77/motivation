@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 object Network {
-    private const val BASE_URL = "http://192.168.8.100:5000"
+    private const val BASE_URL = "http://49.12.57.42:80"
     private val builder: OkHttpClient.Builder = OkHttpClient.Builder()
         .addInterceptor(AddCookiesInterceptor(MyApplication.applicationContext()))
         .addInterceptor(ReceivedCookiesInterceptor(MyApplication.applicationContext()))

@@ -24,7 +24,12 @@ class SubCategoryAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(viewModel, category.subCategories[position], category.color)
+        category.subcategories?.get(position)?.let {
+            holder.bind(
+                viewModel,
+                it, category.color?: "#000000"
+            )
+        }
     }
 
     class ViewHolder private constructor(private val binding: ItemSubCategoryLayoutBinding) :
@@ -56,7 +61,7 @@ class SubCategoryAdapter(
 
     }
 
-    override fun getItemCount() = category.subCategories.size
+    override fun getItemCount() = category.subcategories?.size ?: 0
 
     private class SubCategoryDiffCallback : DiffUtil.ItemCallback<SubCategory>() {
         override fun areItemsTheSame(oldItem: SubCategory, newItem: SubCategory): Boolean {

@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -25,9 +26,7 @@ import timber.log.Timber
 class AuthenticationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthenticationBinding
 
-    private val viewModel by lazy {
-        ViewModelProviders.of(this).get(AuthenticationViewModel::class.java)
-    }
+    private val viewModel: AuthenticationViewModel by viewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,7 +96,6 @@ class AuthenticationActivity : AppCompatActivity() {
     private fun setupNavigationToMainActivity() {
         viewModel.showMainActivity.observe(this, Observer {
             it.getContentIfNotHandled()?.let {
-                viewModel.temp()
                 startActivity(Intent(this, MainActivity::class.java))
             }
         })

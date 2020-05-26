@@ -32,6 +32,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
 }
 
 dependencies {
@@ -48,8 +52,11 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     // view model
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0-alpha01'
-    implementation 'androidx.fragment:fragment-ktx:1.1.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    kapt "androidx.lifecycle:lifecycle-compiler:2.2.0"
+    implementation 'androidx.fragment:fragment-ktx:1.2.4'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
 
     // navigation component
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationComponentVersion"
@@ -64,21 +71,19 @@ dependencies {
     // room database
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0'
     kapt "androidx.room:room-compiler:$room_version"
-
+    implementation "androidx.room:room-ktx:$room_version"
     // motion layout
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta3'
-    implementation 'com.google.android.material:material:1.2.0-alpha01'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta6'
+    implementation 'com.google.android.material:material:1.2.0-alpha06'
 
 
     // Core with Ktx
-    implementation "androidx.core:core-ktx:$version_core"
+    implementation "androidx.core:core-ktx:1.2.0"
 
     // Moshi
     implementation "com.squareup.moshi:moshi:$version_moshi"
-    implementation "com.squareup.moshi:moshi-kotlin:$version_moshi"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$version_moshi"
 
     // Retrofit with Moshi Converter
     implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
@@ -93,4 +98,9 @@ dependencies {
 
     // Button with progressbar
     implementation 'com.github.razir.progressbutton:progressbutton:2.1.0'
+
+    // Workmanager
+    implementation "androidx.work:work-runtime-ktx:2.3.4"
+
+    // Notification Support
 }

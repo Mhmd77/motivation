@@ -1,9 +1,7 @@
 package com.tehran.motivation.data.source.remote
 
 
-import com.tehran.motivation.data.LoginData
-import com.tehran.motivation.data.ResponseAuth
-import com.tehran.motivation.data.SignUpData
+import com.tehran.motivation.data.*
 import kotlinx.coroutines.Deferred
 import okhttp3.ResponseBody
 import retrofit2.http.Body
@@ -16,10 +14,7 @@ interface AuthApiService {
     fun signUpAsync(@Body data: SignUpData): Deferred<ResponseAuth>
 
     @POST("api/login")
-    fun loginAsync(@Body data: LoginData): Deferred<ResponseAuth>
-
-    @GET("api/getMedia/1")
-    fun mediaAsync():Deferred<ResponseBody>
+    fun loginAsync(@Body data: LoginData): Deferred<Response<User>>
 }
 
 object AuthApi {

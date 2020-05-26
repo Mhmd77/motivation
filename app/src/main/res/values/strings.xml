@@ -24,4 +24,8 @@
     <string name="log_in">ورود</string>
     <string name="no_account">حساب کاربری ندارید؟</string>
     <string name="failed_connection">ارتباط برقرار نشد</string>
+    <string name="motivation_notification_channel_id" translatable="false">motivation_channel</string>
+    <string name="notification_title">Motivation</string>
+    <string name="motivation_notification_channel_name">Motivation</string>
+    <string name="motivation_notification_channel_description">Description</string>
 </resources>

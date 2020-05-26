@@ -81,19 +81,16 @@ class AuthenticationViewModel(application: Application) : AndroidViewModel(appli
             _authResultLogin.value = Result.Success(response.message)
             _snackMessage.postValue(Event(response.message))
             if (response.status == 200) {
+                Timber.d("message: ${response.message}")
                 _showMainActivity.value = Event(Any())
+                getApplication<MyApplication>().setupRecurringWork()
+            } else {
+                Timber.d("code: ${response.status}")
             }
         } catch (e: Exception) {
             _snackMessage.value =
                 Event(getApplication<MyApplication>().getString(R.string.failed_connection))
             _authResultLogin.value = Result.Error(e)
-        }
-    }
-
-    fun temp() {
-        val temp = AuthApi.api.mediaAsync()
-        scope.launch {
-            temp.await()
         }
     }
 
