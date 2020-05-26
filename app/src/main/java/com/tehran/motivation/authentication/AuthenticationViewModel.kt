@@ -88,6 +88,7 @@ class AuthenticationViewModel(application: Application) : AndroidViewModel(appli
                 Timber.d("code: ${response.status}")
             }
         } catch (e: Exception) {
+            e.printStackTrace()
             _snackMessage.value =
                 Event(getApplication<MyApplication>().getString(R.string.failed_connection))
             _authResultLogin.value = Result.Error(e)

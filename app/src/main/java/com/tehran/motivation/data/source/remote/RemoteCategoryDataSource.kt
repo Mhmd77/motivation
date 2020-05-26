@@ -29,11 +29,14 @@ object RemoteCategoryDataSource : CategoryDataSource {
     override suspend fun getCategories(): Result<List<Category>> {
         val deferred = api.getMediaFromServerAsync()
         val result = deferred.await()
-        return if (result.status == 200) {
-            Result.Success(result.data)
-        } else {
-            Result.Error(Exception("code: ${result.status} message: ${result.message}"))
+        result.data?.let {
+            return if (result.status == 200) {
+                Result.Success(result.data)
+            } else {
+                Result.Error(Exception("code: ${result.status} message: ${result.message}"))
+            }
         }
+        return Result.Error(Exception("Data is null"))
     }
 
     override suspend fun refreshCategories() {
