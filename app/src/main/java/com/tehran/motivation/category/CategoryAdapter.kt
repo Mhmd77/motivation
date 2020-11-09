@@ -41,8 +41,8 @@ class CategoryAdapter(private val viewModel: CategoryViewModel) :
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
-                val inflator = LayoutInflater.from(parent.context)
-                val binding = ItemCategoryLayoutBinding.inflate(inflator, parent, false)
+                val inflater = LayoutInflater.from(parent.context)
+                val binding = ItemCategoryLayoutBinding.inflate(inflater, parent, false)
                 binding.lifecycleOwner = parent.context as LifecycleOwner
                 return ViewHolder(binding)
             }

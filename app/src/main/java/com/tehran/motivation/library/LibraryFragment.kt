@@ -1,15 +1,16 @@
 package com.tehran.motivation.library
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-
-import com.tehran.motivation.R
+import com.app.player_lib.PlayerActivity
 import com.tehran.motivation.ServiceLocator
 import com.tehran.motivation.databinding.FragmentLibraryBinding
+
 
 /**
  * A simple [Fragment] subclass.
@@ -35,6 +36,15 @@ class LibraryFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = viewModel
         setupLists()
+        setupVideoStreamer()
+    }
+
+    private fun setupVideoStreamer() {
+        binding.textMovies.setOnClickListener {
+            val mIntent: Intent =
+                Intent(requireContext(), PlayerActivity::class.java)
+            startActivity(mIntent)
+        }
     }
 
     private fun setupLists() {

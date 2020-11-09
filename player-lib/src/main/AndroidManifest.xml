@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.app.player_lib">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application android:supportsRtl="true">
+        <activity
+            android:name=".PlayerActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:label="@string/title_player_main" />
+    </application>
+
+</manifest>

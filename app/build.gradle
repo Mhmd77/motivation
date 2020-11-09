@@ -71,10 +71,10 @@ dependencies {
     // room database
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
-    implementation "android.arch.persistence.room:runtime:$room_version"
+    implementation "androidx.room:room-runtime:2.0.0"
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
-    kapt "android.arch.persistence.room:compiler:$room_version"
+    kapt "androidx.room:room-compiler:2.0.0"
 
     // motion layout
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta6'
@@ -109,4 +109,6 @@ dependencies {
 
     // stack view
     implementation 'com.yarolegovich:discrete-scrollview:1.4.9'
+
+    implementation project(":player-lib")
 }
