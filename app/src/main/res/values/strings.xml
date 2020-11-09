@@ -30,4 +30,8 @@
     <string name="motivation_notification_channel_description">Description</string>
     <string name="title_books">کتاب ها</string>
     <string name="title_podcasts">پادکست ها</string>
+    <string name="share_app">به اشتراک گذاشتن نرسر</string>
+    <string name="collections">مجموعه ها</string>
+    <string name="past_motivations">یادداشت های گذشته</string>
+    <string name="favorites">علاقه ها</string>
 </resources>

@@ -9,8 +9,8 @@ android {
 
     defaultConfig {
         applicationId "com.tehran.motivation"
-        minSdkVersion 21
-        targetSdkVersion 29
+        minSdkVersion 23
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
