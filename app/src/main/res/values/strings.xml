@@ -28,4 +28,6 @@
     <string name="notification_title">Motivation</string>
     <string name="motivation_notification_channel_name">Motivation</string>
     <string name="motivation_notification_channel_description">Description</string>
+    <string name="title_books">کتاب ها</string>
+    <string name="title_podcasts">پادکست ها</string>
 </resources>

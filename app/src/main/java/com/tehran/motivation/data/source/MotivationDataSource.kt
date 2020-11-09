@@ -6,24 +6,26 @@ import com.tehran.motivation.data.Result
 
 interface MotivationDataSource {
 
-
-    fun observeMotivations(): LiveData<Result<List<Motivation>>>
-
-    suspend fun getTasks(): Result<List<Motivation>>
-
-    suspend fun refreshMotivations()
+    suspend fun getMotivations(subId: Long): Result<List<Motivation>>
 
     fun observeMotivation(motivationId: Long): LiveData<Result<Motivation>>
 
-    suspend fun getMotivation(motivationId: Long): Result<Motivation>
+    suspend fun getMotivation(): Result<Motivation>
 
-    fun observeSavedMotivations():LiveData<Result<List<Motivation>>>
+    suspend fun getTodayMotivations(): Result<List<Motivation>>
 
-    suspend fun getSavedMotivations():Result<List<Motivation>>
+    fun observeSavedMotivations(): LiveData<Result<List<Motivation>>>
+
+    suspend fun getSavedMotivations(): Result<List<Motivation>>
 
     suspend fun saveMotivation(motivation: Motivation)
 
     suspend fun deleteAllSavedMotivations()
 
     suspend fun deleteSavedMotivation(motivationId: Long)
+
+    suspend fun deleteAllMotivations()
+
+    suspend fun insertMotivations(motivations: List<Motivation>)
+
 }

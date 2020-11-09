@@ -84,6 +84,8 @@ class AuthenticationViewModel(application: Application) : AndroidViewModel(appli
                 Timber.d("message: ${response.message}")
                 _showMainActivity.value = Event(Any())
                 getApplication<MyApplication>().setupRecurringWork()
+                getApplication<MyApplication>().setupRecurringMediaWork()
+                getApplication<MyApplication>().setupFetchMotivationWork()
             } else {
                 Timber.d("code: ${response.status}")
             }

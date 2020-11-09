@@ -3,13 +3,10 @@ package com.tehran.motivation.data.source
 import androidx.lifecycle.LiveData
 import com.tehran.motivation.data.Category
 import com.tehran.motivation.data.Result
-import com.tehran.motivation.data.SubCategory
 import com.tehran.motivation.data.source.local.category.LocalCategoryDataSource
 import com.tehran.motivation.data.source.remote.RemoteCategoryDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import timber.log.Timber
-import java.lang.Exception
 
 class CategoryRepository(
     private val remoteDataSource: RemoteCategoryDataSource,

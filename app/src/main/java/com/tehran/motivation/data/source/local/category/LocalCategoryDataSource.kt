@@ -10,7 +10,7 @@ import kotlinx.coroutines.*
 
 class LocalCategoryDataSource(
     private val dao: CategoryDao,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.Default
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : CategoryDataSource {
     override fun observeCategories(): LiveData<Result<List<Category>>> {
         return Transformations.map(dao.observeCategories()) {

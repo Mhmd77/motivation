@@ -6,19 +6,14 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textViewStyle">@style/BYekanTextViewStyle</item>
-        <item name="android:buttonStyle">@style/BYekanButtonStyle</item>
-    </style>
-
-    <style name="BYekanTextViewStyle" parent="Widget.AppCompat.TextView">
-        <item name="fontFamily">@font/font_b_yekan</item>
-    </style>
-
-    <style name="BYekanButtonStyle" parent="Widget.AppCompat.Button">
-        <item name="fontFamily">@font/font_b_yekan</item>
+        <item name="fontFamily">@font/b_yekan_regular</item>
     </style>
 
     <style name="BYekanNavigationItemStyle" parent="TextAppearance.AppCompat.Large">
         <item name="fontFamily">@font/font_b_yekan</item>
+    </style>
+
+    <style name="BYekanBoldTitle" parent="TextAppearance.AppCompat" >
+        <item name="fontFamily">@font/b_yekan_bold</item>
     </style>
 </resources>

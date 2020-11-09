@@ -11,11 +11,11 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.tehran.motivation.R
 import com.tehran.motivation.ServiceLocator
-import com.tehran.motivation.data.source.CategoryRepository
+import com.tehran.motivation.data.source.MotivationRepository
 import com.tehran.motivation.util.sendNotification
 import timber.log.Timber
 
-class FetchMotivationWorker(
+class MotivationWorker(
     appContext: Context,
     params: WorkerParameters
 ) : CoroutineWorker(appContext, params) {
@@ -37,30 +37,61 @@ class FetchMotivationWorker(
     }
 
     companion object {
-        const val WORK_NAME = "com.tehran.motivation.work.FetchMotivationWorker"
+        const val WORK_NAME = "com.tehran.motivation.work.MotivationWorker"
         const val WORK_TAG = "FetchMotivationJob"
     }
 
     override suspend fun doWork(): Result {
-        notificationManager.sendNotification("Network Awailable", applicationContext)
-        val categoryRepository = ServiceLocator.provideCategoryRepository(applicationContext)
-        return getCategoriesFromRemote(categoryRepository)
+        val motivationRepository = ServiceLocator.provideMotivationRepository(applicationContext)
+        return getMotivationsFromRemote(motivationRepository)
     }
 
-
-    private suspend fun getCategoriesFromRemote(repository: CategoryRepository): Result {
-        return when (val result = repository.refreshCategories()) {
+    private suspend fun getMotivationsFromRemote(repository: MotivationRepository): Result {
+        return when (val result = repository.refreshMotivations()) {
             is com.tehran.motivation.data.Result.Success -> {
-                Timber.d("Successfull Category Update")
+                getMotivation(repository)?.let {
+                    notificationManager.sendNotification(it, applicationContext)
+                }
+                Timber.d("Successfull Motivation Update")
                 Result.success()
             }
             is com.tehran.motivation.data.Result.Error -> {
                 Timber.d("Retry: ${result.exception.message}")
+                result.exception.printStackTrace()
                 Result.retry()
             }
             else -> {
                 Timber.d("Failed")
                 Result.failure()
+            }
+        }
+    }
+
+    private suspend fun getMotivation(repository: MotivationRepository): String? {
+        return when (val result = repository.getTodayMotivations()) {
+            is com.tehran.motivation.data.Result.Success -> {
+                val prefsManager = ServiceLocator.providePrefsManager(applicationContext)
+                val currentMotivation = prefsManager.getMotivationNumber().takeIf {
+                    it < result.data.size && result.data.isNotEmpty()
+                }.also {
+                    if (it == null) {
+                        prefsManager.resetMotivationNumber()
+                    } else {
+                        prefsManager.updateMotivationNumber()
+                    }
+                }
+                currentMotivation?.let {
+                    result.data[it].description
+                }?: kotlin.run {
+                    null
+                }
+            }
+            is com.tehran.motivation.data.Result.Error -> {
+                Timber.e(result.exception)
+                "No Motivation Is Left For Today. Sorry :("
+            }
+            else -> {
+                "Loading"
             }
         }
     }

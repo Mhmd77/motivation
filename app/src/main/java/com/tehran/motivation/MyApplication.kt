@@ -3,7 +3,9 @@ package com.tehran.motivation
 import android.app.Application
 import android.content.Context
 import androidx.work.*
-import com.tehran.motivation.work.FetchMotivationWorker
+import com.tehran.motivation.work.CategoryWorker
+import com.tehran.motivation.work.MediaWorker
+import com.tehran.motivation.work.MotivationWorker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -32,8 +34,8 @@ class MyApplication : Application() {
             return instance!!.applicationContext
         }
 
-        fun cancleService(tag: String) {
-            WorkManager.getInstance().cancelAllWorkByTag(tag)
+        fun cancleService(context: Context, tag: String) {
+            WorkManager.getInstance(context).cancelAllWorkByTag(tag)
         }
     }
 
@@ -47,12 +49,44 @@ class MyApplication : Application() {
             .setRequiredNetworkType(NetworkType.NOT_ROAMING)
             .build()
         val repeatedFetch =
-            PeriodicWorkRequestBuilder<FetchMotivationWorker>(15, TimeUnit.MINUTES)
+            PeriodicWorkRequestBuilder<CategoryWorker>(1, TimeUnit.DAYS)
                 .setConstraints(constraints)
-                .addTag(FetchMotivationWorker.WORK_TAG)
+                .addTag(CategoryWorker.WORK_TAG)
+                .build()
+        WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
+            CategoryWorker.WORK_NAME,
+            ExistingPeriodicWorkPolicy.REPLACE,
+            repeatedFetch
+        )
+    }
+
+    fun setupRecurringMediaWork() {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.NOT_ROAMING)
+            .build()
+        val repeatedFetch =
+            PeriodicWorkRequestBuilder<MediaWorker>(1, TimeUnit.DAYS)
+                .setConstraints(constraints)
+                .addTag(MediaWorker.WORK_TAG)
                 .build()
         WorkManager.getInstance().enqueueUniquePeriodicWork(
-            FetchMotivationWorker.WORK_NAME,
+            MediaWorker.WORK_NAME,
+            ExistingPeriodicWorkPolicy.REPLACE,
+            repeatedFetch
+        )
+    }
+
+    fun setupFetchMotivationWork() {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.NOT_ROAMING)
+            .build()
+        val repeatedFetch =
+            PeriodicWorkRequestBuilder<MotivationWorker>(15, TimeUnit.MINUTES)
+                .setConstraints(constraints)
+                .addTag(MotivationWorker.WORK_TAG)
+                .build()
+        WorkManager.getInstance().enqueueUniquePeriodicWork(
+            MotivationWorker.WORK_NAME,
             ExistingPeriodicWorkPolicy.REPLACE,
             repeatedFetch
         )

@@ -11,15 +11,17 @@ import retrofit2.http.GET
 import timber.log.Timber
 import java.lang.Exception
 
-interface CategoryApiService {
-    @GET("api/getCategory")
-    fun getMediaFromServerAsync(): Deferred<Response<List<Category>>>
 
-    @GET("api/getAllSubcategories")
-    fun getAllSubCategoriesAsync(): Deferred<Response<List<SubCategory>>>
-}
 
 object RemoteCategoryDataSource : CategoryDataSource {
+    interface CategoryApiService {
+        @GET("api/getCategory")
+        fun getMediaFromServerAsync(): Deferred<Response<List<Category>>>
+
+        @GET("api/getAllSubcategories")
+        fun getAllSubCategoriesAsync(): Deferred<Response<List<SubCategory>>>
+    }
+
     private val api: CategoryApiService = Network.retrofit.create(CategoryApiService::class.java)
 
     override fun observeCategories(): LiveData<Result<List<Category>>> {

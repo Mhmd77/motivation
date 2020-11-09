@@ -11,6 +11,8 @@ import com.tehran.motivation.Event
 import com.tehran.motivation.category.CategoryAdapter
 import com.tehran.motivation.data.Category
 import com.tehran.motivation.data.Motivation
+import com.tehran.motivation.data.Video
+import com.tehran.motivation.library.VideoAdapter
 import com.tehran.motivation.note.NoteAdapter
 
 @BindingAdapter("motivationList")
@@ -21,6 +23,11 @@ fun RecyclerView.motivationList(motivations: List<Motivation>?) = motivations?.l
 @BindingAdapter("categoryList")
 fun RecyclerView.categoryList(categories: List<Category>?) = categories?.let {
     (adapter as CategoryAdapter).submitList(it)
+}
+
+@BindingAdapter("videoList")
+fun RecyclerView.videoList(videos: List<Video>?) = videos?.let {
+    (adapter as VideoAdapter).submitList(it)
 }
 
 fun View.showSnackbar(snackbarText: String, timeLength: Int) {

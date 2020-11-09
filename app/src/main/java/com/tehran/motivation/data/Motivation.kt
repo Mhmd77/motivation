@@ -4,18 +4,22 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
-import java.util.*
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 @Entity(tableName = "motivation_table")
 data class Motivation constructor(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "entity_id")
     val id: Long = 0,
-    @ColumnInfo(name = "title")
     val title: String? = "",
-    @ColumnInfo(name = "description")
-    @Json(name = "description")
-    val note: String = ""/*,
+    val description: String = "",
     @ColumnInfo(name = "time_stamp")
-    val time: Date*/
-)
+    @Json(name = "timestamp")
+    val time: String? = null
+){
+
+    //Todo : remove this function
+    override fun toString(): String {
+        return "des: $description \t time: $time"
+    }
+}
