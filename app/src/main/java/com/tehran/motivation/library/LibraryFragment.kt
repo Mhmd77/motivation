@@ -32,14 +32,16 @@ class LibraryFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = viewModel
-        binding.lifecycleOwner = this
         setupLists()
     }
 
     private fun setupLists() {
         val videoAdapter = VideoAdapter(viewModel)
         binding.videosList.adapter = videoAdapter
+        binding.booksList.adapter = videoAdapter
+        binding.podcastsList.adapter = videoAdapter
     }
 
 }

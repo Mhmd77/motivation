@@ -13,17 +13,19 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="16dp"
         tools:context=".library.LibraryFragment">
 
         <TextView
             android:id="@+id/text_movies"
+            style="@style/TitleWithIcon"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="@dimen/vertical_margin"
-            android:layout_marginEnd="16dp"
+            android:drawableEnd="@drawable/ic_movie_32"
+            android:drawableTint="@color/orange_500"
+            android:gravity="center_vertical"
             android:text="@string/title_movies"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -46,11 +48,14 @@
 
         <TextView
             android:id="@+id/text_books"
-            android:layout_width="379dp"
+            style="@style/TitleWithIcon"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:drawableEnd="@drawable/ic_book_32"
+            android:drawableTint="@color/red_500"
             android:text="@string/title_books"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintEnd_toEndOf="@+id/text_movies"
             app:layout_constraintStart_toStartOf="@+id/text_movies"
             app:layout_constraintTop_toBottomOf="@+id/videosList" />
@@ -71,11 +76,13 @@
 
         <TextView
             android:id="@+id/text_podcasts"
-            android:layout_width="379dp"
+            android:layout_width="0dp"
+            style="@style/TitleWithIcon"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:drawableEnd="@drawable/ic_podcast_32"
+            android:drawableTint="@color/indigo_500"
             android:text="@string/title_podcasts"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
             app:layout_constraintEnd_toEndOf="@+id/text_movies"
             app:layout_constraintStart_toStartOf="@+id/text_movies"
             app:layout_constraintTop_toBottomOf="@+id/booksList" />
