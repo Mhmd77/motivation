@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -12,6 +13,7 @@ import com.github.razir.progressbutton.attachTextChangeAnimator
 import com.github.razir.progressbutton.hideProgress
 import com.github.razir.progressbutton.showProgress
 import com.google.android.material.snackbar.Snackbar
+import com.mobsandgeeks.saripaar.annotation.Password
 import com.tehran.motivation.MainActivity
 import com.tehran.motivation.R
 import com.tehran.motivation.data.LoginData
@@ -24,17 +26,18 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 import timber.log.Timber
 
 class AuthenticationActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityAuthenticationBinding
-
-    private val viewModel: AuthenticationViewModel by viewModels()
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(
+    private val binding by lazy{
+        DataBindingUtil.setContentView<ActivityAuthenticationBinding>(
             this,
             R.layout.activity_authentication
         )
+    }
+
+    private val viewModel: AuthenticationViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this
         setupNavigationToMainActivity()

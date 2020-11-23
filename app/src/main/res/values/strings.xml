@@ -10,8 +10,8 @@
 در گذشته بذر آن را کاشته اید
     </string>
     <string name="title_notes">پیام های روزانه</string>
-    <string name="add_to_collection">Add To Collection</string>
-    <string name="share_note">Share Note</string>
+    <string name="add_to_favorites">اضافه کردن به علاقه مندی ها</string>
+    <string name="share_note">به اشتراک گذاشتن یادداشت</string>
     <string name="title_movies">فیلم ها</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="categories">دسته بندی ها</string>
@@ -34,4 +34,6 @@
     <string name="collections">مجموعه ها</string>
     <string name="past_motivations">یادداشت های گذشته</string>
     <string name="favorites">علاقه ها</string>
+    <string name="add_to_collections">اضافه به مجموعه</string>
+    <string name="dislike">نامناسب</string>
 </resources>

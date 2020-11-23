@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="item"
-            type="com.tehran.motivation.data.Video" />
+            type="com.tehran.motivation.data.Book" />
 
         <variable
             name="viewmodel"
@@ -18,6 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:onClick="@{()->viewmodel.bookOnClick(item)}"
         android:orientation="vertical">
 
         <TextView
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/b_yekan_bold"
             android:gravity="center"
-            android:text="@{item.VTitle}"
+            android:text="@{item.bTitle}"
             app:layout_constraintEnd_toEndOf="@+id/cardViewImage"
             app:layout_constraintStart_toStartOf="@+id/cardViewImage"
             app:layout_constraintTop_toTopOf="parent" />

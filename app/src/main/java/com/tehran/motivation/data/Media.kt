@@ -29,7 +29,7 @@ open class Media constructor(
 @Entity(tableName = "table_videos")
 data class Video(
     @PrimaryKey
-    var vId: Long,
+    var vId: Long = 0,
     var vTitle: String,
     var vDescription: String,
     var vUrl: String
@@ -40,7 +40,7 @@ data class Video(
 @Entity(tableName = "table_books")
 data class Book(
     @PrimaryKey
-    var bId: Long,
+    var bId: Long = 0,
     var bTitle: String,
     var bDescription: String,
     var vUrl: String
@@ -51,7 +51,7 @@ data class Book(
 @Entity(tableName = "table_podcasts")
 data class Podcast(
     @PrimaryKey
-    var pId: Long,
+    var pId: Long = 0,
     var pTitle: String,
     var pDescription: String,
     var vUrl: String

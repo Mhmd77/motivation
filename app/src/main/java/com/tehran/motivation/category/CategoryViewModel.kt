@@ -19,17 +19,16 @@ class CategoryViewModel(repository: CategoryRepository) : ViewModel() {
 
     private val scope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    /*val categoryList = repository.observeCategories().map {
+    val categoryList = repository.observeCategories().map {
         if (it is Result.Success) {
-            Timber.d("HORA")
             it.data
         } else {
             null
         }
-    }*/
-    val categoryList = MutableLiveData<List<Category>>()
+    }
+//    val categoryList = MutableLiveData<List<Category>>()
 
-    init {
+    /*init {
         insertDummyCats()
     }
 
@@ -44,7 +43,7 @@ class CategoryViewModel(repository: CategoryRepository) : ViewModel() {
         val cat1 = Category(name = "روابط", color = "#ec5d57", subcategories = subs)
         catList.add(cat1)
         categoryList.value = catList
-    }
+    }*/
 }
 
 @Suppress("UNCHECKED_CAST")

@@ -12,10 +12,7 @@ import com.tehran.motivation.data.LoginData
 import com.tehran.motivation.data.Result
 import com.tehran.motivation.data.SignUpData
 import com.tehran.motivation.data.source.remote.AuthApi
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import timber.log.Timber
 
 class AuthenticationViewModel(application: Application) : AndroidViewModel(application) {
@@ -74,26 +71,22 @@ class AuthenticationViewModel(application: Application) : AndroidViewModel(appli
         }
     }
 
-    fun login(data: LoginData) = scope.launch {
-        val loginDeferred = AuthApi.api.loginAsync(data)
-        try {
+    fun login(data: LoginData) {
+        scope.launch {
+            Timber.d(data.toString())
+            val loginDeferred = AuthApi.api.loginAsync(data)
             val response = loginDeferred.await()
             _authResultLogin.value = Result.Success(response.message)
             _snackMessage.postValue(Event(response.message))
             if (response.status == 200) {
                 Timber.d("message: ${response.message}")
                 _showMainActivity.value = Event(Any())
-                getApplication<MyApplication>().setupRecurringWork()
+                getApplication<MyApplication>().setupRecurringCategoryWork()
                 getApplication<MyApplication>().setupRecurringMediaWork()
                 getApplication<MyApplication>().setupFetchMotivationWork()
             } else {
                 Timber.d("code: ${response.status}")
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            _snackMessage.value =
-                Event(getApplication<MyApplication>().getString(R.string.failed_connection))
-            _authResultLogin.value = Result.Error(e)
         }
     }
 

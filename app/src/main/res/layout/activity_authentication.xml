@@ -133,8 +133,9 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/text_email_sign_up" />
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/button_go_login"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -230,8 +231,9 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/text_email_log_in" />
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/button_go_signup"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

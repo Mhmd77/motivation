@@ -1,7 +1,9 @@
 package com.tehran.motivation.data
 
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class User(
     @Json(name = "id") val id: Long,
     @Json(name = "email") val email: String,
@@ -9,17 +11,19 @@ data class User(
     @Json(name = "motivation_count") val count: Int
 )
 
+@JsonClass(generateAdapter = true)
 data class SignUpData(
-    private val name: String,
-    private val email: String,
-    private val password: String
+    val name: String,
+    val email: String,
+    val password: String
 )
 
+@JsonClass(generateAdapter = true)
 data class LoginData(
-    private val email: String,
-    private val password: String
+    val email: String,
+    val password: String
 )
-
+@JsonClass(generateAdapter = true)
 data class ResponseAuth(
     @Json(name = "status") val status: Int,
     @Json(name = "data") val user: User?,

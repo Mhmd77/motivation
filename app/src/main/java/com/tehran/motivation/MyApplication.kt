@@ -41,10 +41,11 @@ class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        delayedInit()
+        Timber.plant(DebugTree())
+//        delayedInit()
     }
 
-    fun setupRecurringWork() {
+    fun setupRecurringCategoryWork() {
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.NOT_ROAMING)
             .build()
@@ -85,7 +86,7 @@ class MyApplication : Application() {
                 .setConstraints(constraints)
                 .addTag(MotivationWorker.WORK_TAG)
                 .build()
-        WorkManager.getInstance().enqueueUniquePeriodicWork(
+        WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
             MotivationWorker.WORK_NAME,
             ExistingPeriodicWorkPolicy.REPLACE,
             repeatedFetch
