@@ -204,6 +204,7 @@
                         android:drawablePadding="8dp"
                         android:ems="10"
                         android:inputType="textEmailAddress"
+                        android:text="m@gmail.com"
                         app:layout_constraintEnd_toEndOf="@+id/text_email_log_in"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/text_email_log_in" />
@@ -227,6 +228,7 @@
                         android:drawablePadding="8dp"
                         android:ems="10"
                         android:inputType="textPassword"
+                        android:text="1"
                         app:layout_constraintEnd_toEndOf="@+id/text_email_log_in"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/text_email_log_in" />

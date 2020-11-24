@@ -40,11 +40,11 @@
                 android:textStyle="bold" />
 
             <ImageView
-                loadSvg="@{item.iconUrl}"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.3"
-                android:maxHeight="100dp" />
+                android:maxHeight="100dp"
+                android:src="@drawable/ic_family_1" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </layout>

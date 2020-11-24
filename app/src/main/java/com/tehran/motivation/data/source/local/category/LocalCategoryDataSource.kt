@@ -16,9 +16,8 @@ class LocalCategoryDataSource(
         return Transformations.map(dao.observeCategories()) {
             try {
                 it?.forEach { category ->
-                    CoroutineScope(ioDispatcher).launch {
-                        category.subcategories = dao.getSubCategories(category.id).subcategories
-                    }
+                    category.subcategoriesLiveData =
+                        Transformations.map(dao.observeSubCategories(category.id)) { t -> t.subcategories }
                 }
                 Result.Success(it)
             } catch (e: Exception) {
@@ -30,7 +29,7 @@ class LocalCategoryDataSource(
     override suspend fun getCategories(): Result<List<Category>> = withContext(ioDispatcher) {
         try {
             val categories = dao.getCategories()
-            categories.forEach { it.subcategories = dao.getSubCategories(it.id).subcategories}
+            categories.forEach { it.subcategories = dao.getSubCategories(it.id).subcategories }
             return@withContext Result.Success(categories)
         } catch (e: Exception) {
             return@withContext Result.Error(e)

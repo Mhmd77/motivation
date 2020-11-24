@@ -29,8 +29,6 @@
             android:id="@+id/subcategoryList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layoutDirection="rtl"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2" />
+            android:layoutDirection="rtl" />
     </LinearLayout>
 </layout>

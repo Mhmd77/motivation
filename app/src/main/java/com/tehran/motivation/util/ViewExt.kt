@@ -14,10 +14,8 @@ import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import com.google.android.material.snackbar.Snackbar
 import com.tehran.motivation.Event
 import com.tehran.motivation.category.CategoryAdapter
-import com.tehran.motivation.data.Book
-import com.tehran.motivation.data.Category
-import com.tehran.motivation.data.Motivation
-import com.tehran.motivation.data.Video
+import com.tehran.motivation.category.SubCategoryAdapter
+import com.tehran.motivation.data.*
 import com.tehran.motivation.library.BookAdapter
 import com.tehran.motivation.library.VideoAdapter
 import com.tehran.motivation.note.NoteAdapter
@@ -31,6 +29,11 @@ fun RecyclerView.motivationList(motivations: List<Motivation>?) = motivations?.l
 @BindingAdapter("categoryList")
 fun RecyclerView.categoryList(categories: List<Category>?) = categories?.let {
     (adapter as CategoryAdapter).submitList(it)
+}
+
+@BindingAdapter("subCategoryList")
+fun RecyclerView.subCategoryList(subCategories: List<SubCategory>?) = subCategories?.let {
+    (adapter as SubCategoryAdapter).submitList(it)
 }
 
 @BindingAdapter("videoList")
@@ -79,5 +82,5 @@ fun ImageView.loadSvg(url: String?) {
     GlideToVectorYou
         .init()
         .with(this.context)
-        .load(Uri.parse(url ?: return), this)
+        .load(Uri.parse("http://49.12.56.172:80/admin/Admin/Images/${url ?: return}"), this)
 }

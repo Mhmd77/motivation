@@ -35,5 +35,9 @@ interface CategoryDao {
 
     @Transaction
     @Query("select * from table_category where id = :id")
+    fun observeSubCategories(id: Long): LiveData<CategoryWithAllSubCategories>
+
+    @Transaction
+    @Query("select * from table_category where id = :id")
     suspend fun getSubCategories(id: Long): CategoryWithAllSubCategories
 }

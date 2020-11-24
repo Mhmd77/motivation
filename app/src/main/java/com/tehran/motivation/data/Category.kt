@@ -1,5 +1,6 @@
 package com.tehran.motivation.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -13,7 +14,9 @@ data class Category constructor(
     var name: String = "",
     @Ignore
     var subcategories: List<SubCategory>? = null,
-    var color: String? = "#00000000" // transparent white
+    @Ignore
+    var subcategoriesLiveData: LiveData<List<SubCategory>>? = null,
+    var color: String? = "#ec5d57" // transparent white
 )
 
 @Entity(tableName = "table_subcategory")
@@ -26,6 +29,7 @@ data class SubCategory constructor(
     @Json(name="category_id")
     var categoryId: Long = 0,
     @ColumnInfo(name = "icon_url")
+    @Json(name="icon_url")
     var iconUrl: String = ""
 )
 

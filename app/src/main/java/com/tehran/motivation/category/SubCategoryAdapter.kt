@@ -11,11 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tehran.motivation.data.Category
 import com.tehran.motivation.data.SubCategory
 import com.tehran.motivation.databinding.ItemSubCategoryLayoutBinding
+import timber.log.Timber
 
 
 class SubCategoryAdapter(
     private val viewModel: CategoryViewModel,
-    private val category: Category
+    private val color: String?
 ) :
     ListAdapter<SubCategory, SubCategoryAdapter.ViewHolder>(SubCategoryDiffCallback()) {
 
@@ -24,12 +25,7 @@ class SubCategoryAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        category.subcategories?.get(position)?.let {
-            holder.bind(
-                viewModel,
-                it, category.color?: "#000000"
-            )
-        }
+        holder.bind(viewModel, getItem(position), color ?: "#000000")
     }
 
     class ViewHolder private constructor(private val binding: ItemSubCategoryLayoutBinding) :
@@ -60,8 +56,6 @@ class SubCategoryAdapter(
         }
 
     }
-
-    override fun getItemCount() = category.subcategories?.size ?: 0
 
     private class SubCategoryDiffCallback : DiffUtil.ItemCallback<SubCategory>() {
         override fun areItemsTheSame(oldItem: SubCategory, newItem: SubCategory): Boolean {
