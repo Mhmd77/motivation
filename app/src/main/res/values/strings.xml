@@ -36,4 +36,6 @@
     <string name="favorites">علاقه ها</string>
     <string name="add_to_collections">اضافه به مجموعه</string>
     <string name="dislike">نامناسب</string>
+    <string name="description_favorite">- %s</string>
+    <string name="delete">حذف</string>
 </resources>

@@ -15,8 +15,9 @@ data class Category constructor(
     @Ignore
     var subcategories: List<SubCategory>? = null,
     @Ignore
+    @Transient
     var subcategoriesLiveData: LiveData<List<SubCategory>>? = null,
-    var color: String? = "#ec5d57" // transparent white
+    var color: String? = "#000000"
 )
 
 @Entity(tableName = "table_subcategory")
@@ -26,10 +27,10 @@ data class SubCategory constructor(
     var id: Long = 0,
     var name: String = "",
     @ColumnInfo(name = "category_id")
-    @Json(name="category_id")
+    @Json(name = "category_id")
     var categoryId: Long = 0,
     @ColumnInfo(name = "icon_url")
-    @Json(name="icon_url")
+    @Json(name = "icon_url")
     var iconUrl: String = ""
 )
 

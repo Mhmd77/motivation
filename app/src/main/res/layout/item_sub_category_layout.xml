@@ -21,6 +21,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="4dp"
+        android:onClick="@{()->viewmodel.selectSubCategory(item)}"
         app:cardCornerRadius="8dp">
 
         <LinearLayout
@@ -40,11 +41,11 @@
                 android:textStyle="bold" />
 
             <ImageView
+                loadSvg="@{item.iconUrl}"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.3"
-                android:maxHeight="100dp"
-                android:src="@drawable/ic_family_1" />
+                android:maxHeight="100dp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </layout>

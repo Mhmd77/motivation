@@ -15,7 +15,7 @@ data class Motivation constructor(
     val description: String = "",
     @ColumnInfo(name = "time_stamp")
     @Json(name = "timestamp")
-    val time: String? = null
+    val time: String? = null,
 ){
 
     //Todo : remove this function

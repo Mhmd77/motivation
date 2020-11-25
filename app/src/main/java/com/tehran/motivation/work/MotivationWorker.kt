@@ -14,11 +14,14 @@ import com.tehran.motivation.ServiceLocator
 import com.tehran.motivation.data.source.MotivationRepository
 import com.tehran.motivation.util.sendNotification
 import timber.log.Timber
+import java.util.*
 
 class MotivationWorker(
     appContext: Context,
     params: WorkerParameters
 ) : CoroutineWorker(appContext, params) {
+
+    private val prefsManager = ServiceLocator.providePrefsManager(applicationContext)
 
     private val notificationManager by lazy {
         ContextCompat.getSystemService(
@@ -47,12 +50,15 @@ class MotivationWorker(
     }
 
     private suspend fun getMotivationsFromRemote(repository: MotivationRepository): Result {
-        return when (val result = repository.refreshMotivations()) {
+        val id = prefsManager.getSelectedSubCategory()?.id
+            ?: return Result.failure().also { Timber.e("There is no subcategory selected") }
+        return when (val result = repository.refreshMotivations(id)) {
             is com.tehran.motivation.data.Result.Success -> {
-                getMotivation(repository)?.let {
+      /*          getMotivation(repository)?.let {
                     notificationManager.sendNotification(it, applicationContext)
-                }
-                Timber.d("Successfull Motivation Update")
+                }*/
+                updateMotivationDate()
+                Timber.d("Successful Motivation Update")
                 Result.success()
             }
             is com.tehran.motivation.data.Result.Error -> {
@@ -67,10 +73,13 @@ class MotivationWorker(
         }
     }
 
-    private suspend fun getMotivation(repository: MotivationRepository): String? {
+    private fun updateMotivationDate() {
+        prefsManager.updateMotivationDate(Date())
+    }
+
+    /*private suspend fun getMotivation(repository: MotivationRepository): String? {
         return when (val result = repository.getTodayMotivations()) {
             is com.tehran.motivation.data.Result.Success -> {
-                val prefsManager = ServiceLocator.providePrefsManager(applicationContext)
                 val currentMotivation = prefsManager.getMotivationNumber().takeIf {
                     it < result.data.size && result.data.isNotEmpty()
                 }.also {
@@ -82,7 +91,7 @@ class MotivationWorker(
                 }
                 currentMotivation?.let {
                     result.data[it].description
-                }?: kotlin.run {
+                } ?: kotlin.run {
                     null
                 }
             }
@@ -94,7 +103,7 @@ class MotivationWorker(
                 "Loading"
             }
         }
-    }
+    }*/
 
 
     @RequiresApi(Build.VERSION_CODES.O)

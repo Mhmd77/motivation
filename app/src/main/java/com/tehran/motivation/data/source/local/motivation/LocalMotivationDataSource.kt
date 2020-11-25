@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.tehran.motivation.data.Motivation
 import com.tehran.motivation.data.Result
 import com.tehran.motivation.data.source.MotivationDataSource
+import com.tehran.motivation.util.Constants
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -36,12 +37,10 @@ class LocalMotivationDataSource internal constructor(
         }
     }
 
-    override suspend fun getTodayMotivations(): Result<List<Motivation>> =
+    override suspend fun getTodayMotivations(from: Int, num: Int): Result<List<Motivation>> =
         withContext(ioDispatcher) {
             try {
-                val d = getDate()
-                Timber.d(d)
-                val motivations = dao.getTodayMotivations(d)
+                val motivations = dao.getTodayMotivations(from, num)
                 motivations?.let {
                     return@withContext Result.Success(it)
                 } ?: kotlin.run {
@@ -51,6 +50,10 @@ class LocalMotivationDataSource internal constructor(
                 return@withContext Result.Error(e)
             }
         }
+
+    override fun observeTodayMotivations(from: Int, num: Int): LiveData<List<Motivation>?> {
+        return dao.observeTodayMotivations(from, num)
+    }
 
     override fun observeSavedMotivations(): LiveData<Result<List<Motivation>>> {
         TODO("Not yet implemented")
@@ -80,15 +83,15 @@ class LocalMotivationDataSource internal constructor(
         dao.insertMotivations(motivations)
     }
 
+    override suspend fun getFavorites(): Result<List<Motivation>> {
+        TODO("Not yet implemented")
+    }
 
-    private fun getDate(): String {
-        val c = Calendar.getInstance()
-        c.set(Calendar.HOUR_OF_DAY, 0)
-        c.set(Calendar.MINUTE, 0)
-        c.set(Calendar.SECOND, 0)
+    override suspend fun addToFavorites(id: Long):Result<Boolean> {
+        TODO("Not yet implemented")
+    }
 
-        //todo: uncomment this part        return Constants.dateFormat.format(c.time)
-
-        return "2020-06-09T23:35:31"
+    override suspend fun removeFromFav(id: Long): Result<Boolean> {
+        TODO("Not yet implemented")
     }
 }

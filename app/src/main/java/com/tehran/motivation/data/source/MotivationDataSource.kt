@@ -12,7 +12,9 @@ interface MotivationDataSource {
 
     suspend fun getMotivation(): Result<Motivation>
 
-    suspend fun getTodayMotivations(): Result<List<Motivation>>
+    suspend fun getTodayMotivations(from:Int,n:Int): Result<List<Motivation>>
+
+    fun observeTodayMotivations(from:Int,n:Int): LiveData<List<Motivation>?>
 
     fun observeSavedMotivations(): LiveData<Result<List<Motivation>>>
 
@@ -27,5 +29,11 @@ interface MotivationDataSource {
     suspend fun deleteAllMotivations()
 
     suspend fun insertMotivations(motivations: List<Motivation>)
+
+    suspend fun getFavorites(): Result<List<Motivation>>
+
+    suspend fun addToFavorites(id: Long): Result<Boolean>
+
+    suspend fun removeFromFav(id: Long): Result<Boolean>
 
 }

@@ -2,7 +2,6 @@ package com.tehran.motivation.note
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -15,9 +14,11 @@ import com.github.zawadz88.materialpopupmenu.popupMenu
 import com.tehran.motivation.R
 import com.tehran.motivation.data.Motivation
 import com.tehran.motivation.databinding.ItemNoteLayoutBinding
+import com.tehran.motivation.util.takeScreenshot
+import java.io.File
 
 
-class NoteAdapter(private val viewModel: NoteViewModel) :
+class NoteAdapter(private val viewModel: NoteViewModel,private val onScreenShotCallBack: ScreenShotCallBack) :
     ListAdapter<Motivation, NoteAdapter.ViewHolder>(MotivationDiffCallback()) {
 
 
@@ -26,7 +27,7 @@ class NoteAdapter(private val viewModel: NoteViewModel) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(viewModel, getItem(position))
+        holder.bind(viewModel, getItem(position),onScreenShotCallBack)
     }
 
     class ViewHolder private constructor(
@@ -35,9 +36,17 @@ class NoteAdapter(private val viewModel: NoteViewModel) :
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(viewModel: NoteViewModel, item: Motivation) {
+        fun bind(
+            viewModel: NoteViewModel,
+            item: Motivation,
+            onScreenShotCallBack: ScreenShotCallBack
+        ) {
             binding.item = item
-            val menu = setupPopUpMenu(binding.iconMore, item)
+            binding.viewmodel = viewModel
+            binding.iconShare.setOnClickListener {
+                onScreenShotCallBack.onScreenShot(takeScreenshot(binding.noteLayout))
+            }
+            val menu = setupPopUpMenu(item)
             binding.iconMore.setOnClickListener {
                 menu.show(context, it)
             }
@@ -53,7 +62,7 @@ class NoteAdapter(private val viewModel: NoteViewModel) :
             }
         }
 
-        private fun setupPopUpMenu(view: View, item: Motivation): MaterialPopupMenu {
+        private fun setupPopUpMenu(item: Motivation): MaterialPopupMenu {
             return popupMenu {
                 section {
                     item {
@@ -86,5 +95,9 @@ class NoteAdapter(private val viewModel: NoteViewModel) :
             return oldItem == newItem
         }
 
+    }
+
+    interface ScreenShotCallBack {
+        fun onScreenShot(file: File?)
     }
 }

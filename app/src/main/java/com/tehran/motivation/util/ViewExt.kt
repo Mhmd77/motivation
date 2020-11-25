@@ -10,6 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import com.google.android.material.snackbar.Snackbar
 import com.tehran.motivation.Event
@@ -19,11 +21,17 @@ import com.tehran.motivation.data.*
 import com.tehran.motivation.library.BookAdapter
 import com.tehran.motivation.library.VideoAdapter
 import com.tehran.motivation.note.NoteAdapter
+import com.tehran.motivation.profile.favorites.FavoritesAdapter
 
 
 @BindingAdapter("motivationList")
 fun RecyclerView.motivationList(motivations: List<Motivation>?) = motivations?.let {
     (adapter as NoteAdapter).submitList(it)
+}
+
+@BindingAdapter("favoritesList")
+fun RecyclerView.favoritesList(motivations: List<Motivation>?) = motivations?.let {
+    (adapter as FavoritesAdapter).submitList(it)
 }
 
 @BindingAdapter("categoryList")
@@ -79,8 +87,16 @@ fun View.setupSnackbar(
 
 @BindingAdapter("loadSvg")
 fun ImageView.loadSvg(url: String?) {
-    GlideToVectorYou
-        .init()
-        .with(this.context)
-        .load(Uri.parse("http://49.12.56.172:80/admin/Admin/Images/${url ?: return}"), this)
+    url?.let {
+        val reqBuilder = GlideToVectorYou
+            .init()
+            .with(this.context)
+            .requestBuilder
+        reqBuilder
+            .load(Uri.parse("http://49.12.56.172:80/admin/Admin/Images/${it}"))
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .apply(RequestOptions().centerCrop())
+            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+            .into(this)
+    }
 }

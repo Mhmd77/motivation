@@ -18,7 +18,11 @@ import kotlinx.coroutines.withContext
 
 class CategoryFragment : Fragment() {
     private val viewModel: CategoryViewModel by viewModels {
-        CategoryViewModelFactory(ServiceLocator.provideCategoryRepository(requireNotNull(activity).application))
+        CategoryViewModelFactory(
+            ServiceLocator.provideCategoryRepository(requireNotNull(activity).application),
+            ServiceLocator.providePrefsManager(requireNotNull(activity).application),
+            requireNotNull(activity).application
+        )
     }
 
     private lateinit var binding: FragmentCategoryBinding

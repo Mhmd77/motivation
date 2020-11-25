@@ -10,7 +10,7 @@ import com.tehran.motivation.data.source.local.motivation.MotivationDao
 
 @Database(
     entities = [Motivation::class, Category::class, SubCategory::class, Video::class, Book::class, Podcast::class],
-    version = 9,
+    version = 11,
     exportSchema = false
 )
 abstract class MyDatabase : RoomDatabase() {

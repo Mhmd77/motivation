@@ -1,23 +1,36 @@
 package com.tehran.motivation.category
 
+import android.app.Application
 import androidx.lifecycle.*
-import com.tehran.motivation.ServiceLocator
-import com.tehran.motivation.data.Category
+import com.tehran.motivation.MyApplication
 import com.tehran.motivation.data.Result
 import com.tehran.motivation.data.SubCategory
 import com.tehran.motivation.data.source.CategoryRepository
-import com.tehran.motivation.data.succeeded
+import com.tehran.motivation.util.PrefsManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import timber.log.Timber
 
-class CategoryViewModel(repository: CategoryRepository) : ViewModel() {
+class CategoryViewModel(
+    private val repository: CategoryRepository,
+    private val prefsManager: PrefsManager, application: Application
+) : AndroidViewModel(application) {
 
     private var viewModelJob = Job()
 
-    private val scope = CoroutineScope(viewModelJob + Dispatchers.Main)
+    val selectedSubCategory = MutableLiveData<String>()
+
+    init {
+        updateSelectedSub()
+    }
+
+    private fun updateSelectedSub() {
+        selectedSubCategory.value =
+            String.format(
+                "موضوع فعلی: %s",
+                prefsManager.getSelectedSubCategory()?.name ?: "انتخاب نشده است"
+            )
+    }
 
     val categoryList = repository.observeCategories().map {
         if (it is Result.Success) {
@@ -26,29 +39,21 @@ class CategoryViewModel(repository: CategoryRepository) : ViewModel() {
             null
         }
     }
-//    val categoryList = MutableLiveData<List<Category>>()
 
-    /*init {
-        insertDummyCats()
+    fun selectSubCategory(item: SubCategory) {
+        prefsManager.selectSubCategory(item)
+        updateSelectedSub()
+        getApplication<MyApplication>().setupFetchMotivationWork()
     }
-
-    private fun insertDummyCats() {
-        val catList = arrayListOf<Category>()
-        val subs = arrayListOf<SubCategory>().also {
-            it.add(SubCategory(name = "خانواده", categoryId = 0))
-            it.add(SubCategory(name = "خانواده", categoryId = 0))
-            it.add(SubCategory(name = "خانواده", categoryId = 0))
-            it.add(SubCategory(name = "خانواده", categoryId = 0))
-        }
-        val cat1 = Category(name = "روابط", color = "#ec5d57", subcategories = subs)
-        catList.add(cat1)
-        categoryList.value = catList
-    }*/
 }
 
 @Suppress("UNCHECKED_CAST")
-class CategoryViewModelFactory(private val repository: CategoryRepository) :
+class CategoryViewModelFactory(
+    private val repository: CategoryRepository,
+    private val prefsManager: PrefsManager,
+    private val application: Application
+) :
     ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-        CategoryViewModel(repository) as T
+        CategoryViewModel(repository, prefsManager, application) as T
 }
